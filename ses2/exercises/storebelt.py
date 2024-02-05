@@ -7,8 +7,12 @@ class CarDatabase:
         if number_plate in self.car_data:
             print(f"Car with number plate {number_plate} already exists in the database.")
         else:
-            # Add new car information to the database as a tuple
-            self.car_data[number_plate] = (color, passengers, length)
+            # Add new car information to the database
+            self.car_data[number_plate] = {
+                'Color': color,
+                'Passengers': passengers,
+                'Length': length
+            }
             print(f"Car with number plate {number_plate} successfully added to the database.")
 
     def get_car_info(self, number_plate):
@@ -18,22 +22,38 @@ class CarDatabase:
         else:
             return f"No information found for the car with number plate {number_plate}."
 
-    def print_database(self):
-        # Print the entire database
-        print("Car Database:")
-        for number_plate, car_info in self.car_data.items():
-            print(
-                f"Number Plate: {number_plate}, Color: {car_info[0]}, Passengers: {car_info[1]}, Length: {car_info[2]}")
 # Example usage
 storebaeltsbroen_database = CarDatabase()
 
 # Add data for a new car
 storebaeltsbroen_database.add_car("ABC123", "Blue", 4, 5.2)
 
-
 # Retrieve information for a specific car
-print('Car Info:')
 car_info = storebaeltsbroen_database.get_car_info("ABC123")
-
 print(car_info)
-storebaeltsbroen_database.print_database()
+# Pseudo code for keeping track of cars that have crossed all bridges
+
+# Create sets for each bridge to store unique number plates
+bridge1_cars = set()
+bridge2_cars = set()
+# ... (add more bridges as needed)
+
+# Assume each bridge has its own CarDatabase instance
+bridge1_database = CarDatabase()
+bridge2_database = CarDatabase()
+# ... (initialize databases for other bridges)
+
+# Register cars for each bridge
+bridge1_database.add_car("ABC123", "Blue", 4, 5.2)
+bridge1_cars.add("ABC123")
+
+bridge2_database.add_car("ABC123", "Red", 2, 4.8)
+bridge2_cars.add("ABC123")
+
+# ... (register cars for other bridges)
+
+# Find cars that have crossed all bridges
+cars_crossed_all_bridges = bridge1_cars.intersection(bridge2_cars)
+
+# Print or use the information as needed
+print(f"Cars that have crossed all bridges: {cars_crossed_all_bridges}")
